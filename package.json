@@ -1,6 +1,6 @@
 {
   "name": "compile-compass",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Sass compiler wrapper",
   "main": "index.js",
   "scripts": {
@@ -33,6 +33,6 @@
     "timo": "*"
   },
   "bin": {
-    "compile-sass": "./bin/compile-compass.js"
+    "compile-compass": "./bin/compile-compass.js"
   }
 }
