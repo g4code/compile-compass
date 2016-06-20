@@ -28,18 +28,9 @@ Compiler.prototype = {
     onRender: function(error, result)
     {
         if (error) {
-            console.log(error)
+            evento.trigger('INFORMER|ERROR', error)
         } else {
-            fs.writeFile(this.file.getDestinationPath(), result.css, this.onWriteFIle.bind(this))
-        }
-    },
-
-    onWriteFIle: function(error)
-    {
-        if (error) {
-            console.log(error)
-        } else  {
-            evento.trigger('INFORMER|SUCCESS', 'write ' + this.file.getDestinationPath())
+            this.file.writeToDestinationPath(result.css)
         }
     }
 

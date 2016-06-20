@@ -1,4 +1,5 @@
-
+var fs      = require('fs-extra')
+var evento  = require('evento')
 
 var File = function(sourcePath, options) {
     this.sourcePath = sourcePath
@@ -15,6 +16,20 @@ File.prototype = {
     getSourcePath: function()
     {
         return this.sourcePath
+    },
+
+    writeToDestinationPath: function(content)
+    {
+        fs.outputFile(this.getDestinationPath(), content, this.onWriteToDestinationPath.bind(this))
+    },
+
+    onWriteToDestinationPath: function(error)
+    {
+        if (error) {
+            evento.trigger('INFORMER|ERROR', error)
+        } else  {
+            evento.trigger('INFORMER|SUCCESS', 'write ' + this.getDestinationPath())
+        }
     }
 }
 

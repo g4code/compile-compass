@@ -25,6 +25,7 @@
   "dependencies": {
     "commander": "*",
     "evento": "*",
+    "fs-extra": "*",
     "informer": "*",
     "node-sass": "*",
     "node-sass-css-importer": "*",
