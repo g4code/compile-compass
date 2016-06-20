@@ -1,9 +1,9 @@
-var options     = require('./options')
-var fs          = require('fs')
-var sass        = require('node-sass')
-var functions   = require('./functions')
-var cssImporter = require('node-sass-css-importer')
-var evento      = require('evento')
+var options             = require('./options')
+var fs                  = require('fs')
+var sass                = require('node-sass')
+var compassFunctions    = require('./compass-functions')
+var cssImporter         = require('node-sass-css-importer')
+var evento              = require('evento')
 
 var Compiler = function(options, file) {
     this.file    = file
@@ -17,7 +17,7 @@ Compiler.prototype = {
     compile: function () {
 
         sass.render({
-            functions   : functions,
+            functions   : compassFunctions,
             file        : this.file.getSourcePath(),
             outFile     : this.file.getDestinationPath(),
             sourceMap   : true,
