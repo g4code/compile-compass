@@ -21,6 +21,7 @@ Compiler.prototype = {
             file        : this.file.getSourcePath(),
             outFile     : this.file.getDestinationPath(),
             sourceMap   : true,
+            sourceMapContents: true,
             importer    : [this.cssImporter]
         }, this.onRender.bind(this))
     },
@@ -30,7 +31,8 @@ Compiler.prototype = {
         if (error) {
             evento.trigger('INFORMER|ERROR', error)
         } else {
-            this.file.writeToDestinationPath(result.css)
+            this.file.writeToDestinationCssPath(result.css)
+            this.file.writeToDestinationMapPath(result.map)
         }
     }
 

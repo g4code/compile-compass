@@ -12,10 +12,10 @@ var App = function(options) {
     evento.trigger('INFORMER|INFO', sassInfo[0]);
     evento.trigger('INFORMER|INFO', sassInfo[1]);
 
-    evento.on('FILER|READ',         this.compile.bind(this))
+    evento.on('FILER|READ', this.compile.bind(this))
 
-    this.options    = options
-    this.filer      = new Filer(options)
+    this.options = options
+    this.filer   = new Filer(options)
 }
 
 App.prototype = {

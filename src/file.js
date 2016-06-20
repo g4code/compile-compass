@@ -13,23 +13,38 @@ File.prototype = {
         return this.sourcePath.replace(this.options.sass_dir, this.options.css_dir).replace('.scss', '.css')
     },
 
+    getDestinationPathForMap: function()
+    {
+        return this.getDestinationPath() + '.map'
+    },
+
     getSourcePath: function()
     {
         return this.sourcePath
     },
 
-    writeToDestinationPath: function(content)
+    writeToDestinationCssPath: function(content)
     {
-        fs.outputFile(this.getDestinationPath(), content, this.onWriteToDestinationPath.bind(this))
+        fs.outputFile(this.getDestinationPath(), content, this.onWriteToDestinationCssPath.bind(this))
     },
 
-    onWriteToDestinationPath: function(error)
+    writeToDestinationMapPath: function(content)
     {
-        if (error) {
-            evento.trigger('INFORMER|ERROR', error)
-        } else  {
+        fs.outputFile(this.getDestinationPathForMap(), content, this.onWriteToDestinationMapPath.bind(this))
+    },
+
+    onWriteToDestinationCssPath: function(error)
+    {
+        error ?
+            evento.trigger('INFORMER|ERROR', error) :
             evento.trigger('INFORMER|SUCCESS', 'write ' + this.getDestinationPath())
-        }
+    },
+
+    onWriteToDestinationMapPath: function(error)
+    {
+        error ?
+            evento.trigger('INFORMER|ERROR', error) :
+            evento.trigger('INFORMER|SUCCESS', 'write ' + this.getDestinationPathForMap())
     }
 }
 
