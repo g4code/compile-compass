@@ -23,15 +23,16 @@
   },
   "homepage": "https://github.com/g4code/compile-sass#readme",
   "dependencies": {
-    "commander": "*",
-    "evento": "*",
-    "fs-extra": "*",
-    "informer": "*",
-    "node-sass": "*",
-    "node-sass-css-importer": "*",
-    "node-sass-asset-functions": "*",
-    "recursive-readdir": "*",
-    "timo": "*"
+    "commander"                 : "*",
+    "evento"                    : "*",
+    "fs-extra"                  : "*",
+    "gaze"                      : "*",
+    "informer"                  : "*",
+    "node-sass"                 : "*",
+    "node-sass-css-importer"    : "*",
+    "node-sass-asset-functions" : "*",
+    "recursive-readdir"         : "*",
+    "timo"                      : "*"
   },
   "bin": {
     "compile-compass": "./bin/compile-compass.js"

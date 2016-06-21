@@ -18,7 +18,8 @@ evento.on("INFORMER|WARNING",   informer.warning.bind(informer));
 
 commander
     .version(packageData.version)
-    .option('-c, --config [type]', 'specify the location of the configuration file explicitly')
+    .option('-c, --config [path]', 'specify the location of the configuration file explicitly')
+    .option('-w, --watch', 'compile sass stylesheets to css when they change')
     .parse(process.argv);
 
-new App(new Options(commander.config))
+new App(new Options(commander.config, commander.watch))

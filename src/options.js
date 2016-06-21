@@ -1,34 +1,36 @@
-var fs = require('fs')
-var path = require('path')
+var fs              = require('fs')
+var path            = require('path')
 
-var Options = function(configPath) {
+var configPath      = null
+var configDirName   = null
 
-    this.configPath = this.normalizeConfigPath(configPath)
-    this.configDirname = path.dirname(this.configPath)
+function buildPath(filePath) {
+    return path.isAbsolute(filePath) ?
+        path.normalize(filePath) :
+        path.join(configDirName, filePath)
+}
 
-    var rawData       = fs.readFileSync(this.configPath, 'utf8');
+function normalizeConfigPath(filePath)
+{
+    return path.isAbsolute(filePath) ?
+        path.normalize(filePath) :
+        path.join(process.cwd(), filePath)
+}
+
+var Options = function(pathToConfig, watch) {
+
+    configPath    = normalizeConfigPath(pathToConfig)
+    configDirName = path.dirname(configPath)
+
+    var rawData       = fs.readFileSync(configPath, 'utf8');
     var data          = JSON.parse(rawData)
 
-    this.import_paths = data.import_paths.map(this.buildPath, this)
-    this.css_dir      = this.buildPath(data.css_dir)
-    this.sass_dir     = this.buildPath(data.sass_dir)
+    this.watch        = watch !== undefined && watch
+    this.import_paths = data.import_paths.map(buildPath)
+    this.css_dir      = buildPath(data.css_dir)
+    this.sass_dir     = buildPath(data.sass_dir)
 }
 
-Options.prototype = {
-
-    buildPath: function(filePath)
-    {
-        return path.isAbsolute(filePath) ?
-            path.normalize(filePath) :
-            path.join(this.configDirname, filePath)
-    },
-
-    normalizeConfigPath: function(configPath)
-    {
-        return path.isAbsolute(configPath) ?
-            path.normalize(configPath) :
-            path.join(process.cwd(), configPath)
-    }
-}
+Options.prototype = {}
 
 module.exports = Options
