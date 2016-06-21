@@ -18,6 +18,11 @@ File.prototype = {
         return this.getDestinationPath() + '.map'
     },
 
+    getSourceFilename: function()
+    {
+        return this.sourcePath.replace(this.options.sass_dir, '')
+    },
+
     getSourcePath: function()
     {
         return this.sourcePath

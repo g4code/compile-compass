@@ -1,4 +1,5 @@
 var Compiler    = require('./compiler')
+var Watcher     = require('./watcher')
 var evento      = require('evento')
 var Filer       = require('./filer')
 var File        = require('./file')
@@ -16,6 +17,8 @@ var App = function(options) {
 
     this.options = options
     this.filer   = new Filer(options)
+
+    //new Watcher(options)
 }
 
 App.prototype = {
