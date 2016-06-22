@@ -41,7 +41,7 @@ Watcher.prototype = {
     onAll: function(event, filepath)
     {
         evento.trigger('INFORMER|INFO', event + ' ' + new File(filepath, this.options).getSourceFilename())
-        evento.trigger('WATCHER|CHANGE')
+        evento.trigger('WATCHER|CHANGE', filepath)
     }
 }
 

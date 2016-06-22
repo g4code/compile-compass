@@ -31,6 +31,7 @@ Compiler.prototype = {
         if (error) {
             evento.trigger('INFORMER|ERROR', error)
         } else {
+            evento.trigger('COMPILER|STATS', result.stats)
             this.file.writeToDestinationCssPath(result.css)
             this.file.writeToDestinationMapPath(result.map)
         }

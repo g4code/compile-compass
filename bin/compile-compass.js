@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-var App         = require("../src/app")
-var Options     = require("../src/options");
-var commander   = require('commander');
-var packageData = require(__dirname + "/../package.json");
-var informer    = require('informer')
-var evento      = require('evento')
+const App           = require("../src/app")
+const Options       = require("../src/options");
+const commander     = require('commander');
+const packageData   = require(__dirname + "/../package.json");
+const informer      = require('informer')
+const evento        = require('evento')
 
 informer.title(packageData.name)
         .titleColor("grey");
