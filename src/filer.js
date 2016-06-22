@@ -1,12 +1,17 @@
-var evento      = require('evento')
-var recursive   = require('recursive-readdir')
+const evento      = require('evento')
+const recursive   = require('recursive-readdir')
+const path        = require('path')
+const unique        = require('array-unique')
 
-var Filer = function(options) {
+var Filer = function(options, ignorePattern) {
 
     this.options    = options
     this.files      = []
+    this.dirs       = []
 
-    recursive(options.sass_dir, ['_*.scss'], this.onRecursive.bind(this));
+    ignorePattern ?
+        recursive(options.sass_dir, [ignorePattern], this.onRecursive.bind(this)) :
+        recursive(options.sass_dir, this.onRecursive.bind(this));
 }
 
 Filer.prototype = {
@@ -17,8 +22,18 @@ Filer.prototype = {
             evento.trigger('INFORMER|ERROR', err)
         } else {
             this.files = files
+            this.findDirs()
             evento.trigger('FILER|READ')
         }
+    },
+
+    findDirs: function()
+    {
+        var arrayLength = this.files.length;
+        for (var i = 0; i < arrayLength; i++) {
+            this.dirs.push(path.dirname(this.files[i]))
+        }
+        this.dirs = unique(this.dirs)
     }
 }
 

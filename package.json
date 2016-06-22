@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/g4code/compile-sass#readme",
   "dependencies": {
+    "array-unique"              : "*",
     "commander"                 : "*",
     "evento"                    : "*",
     "fs-extra"                  : "*",

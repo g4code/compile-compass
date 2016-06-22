@@ -13,10 +13,11 @@ var App = function(options) {
     evento.trigger('INFORMER|INFO', sassInfo[0]);
     evento.trigger('INFORMER|INFO', sassInfo[1]);
 
-    evento.on('FILER|READ', this.compile.bind(this))
+    evento.on('FILER|READ', this.onFilerRead.bind(this))
+    evento.on('WATCHER|CHANGE', this.compile.bind(this))
 
     this.options = options
-    this.filer   = new Filer(this.options)
+    this.filer   = new Filer(this.options, '_*.scss')
 }
 
 App.prototype = {
@@ -28,13 +29,18 @@ App.prototype = {
             //TODO: Drasko - change to fork with timeout
             setTimeout(this.compileOne.bind(this, this.filer.files[i]), Math.floor(Math.random() * 1000))
         }
-
-        this.options.watch && new Watcher(this.options)
     },
 
     compileOne: function(oneFile)
     {
         new Compiler(this.options, new File(oneFile, this.options)).compile()
+    },
+
+    onFilerRead: function()
+    {
+        this.compile()
+        evento.off('FILER|READ')
+        this.options.watch && new Watcher(this.options)
     }
 }
 
