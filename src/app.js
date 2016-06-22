@@ -1,10 +1,10 @@
-var Compiler    = require('./compiler')
-var Watcher     = require('./watcher')
-var evento      = require('evento')
-var Filer       = require('./filer')
-var File        = require('./file')
-var sass        = require('node-sass')
-var eol         = require('os').EOL
+var Compiler        = require('./compiler')
+var Watcher         = require('./watcher')
+var evento          = require('evento')
+var Filer           = require('./filer')
+var File            = require('./file')
+var sass            = require('node-sass')
+var eol             = require('os').EOL
 
 var App = function(options) {
 
@@ -16,9 +16,7 @@ var App = function(options) {
     evento.on('FILER|READ', this.compile.bind(this))
 
     this.options = options
-    this.filer   = new Filer(options)
-
-    //new Watcher(options)
+    this.filer   = new Filer(this.options)
 }
 
 App.prototype = {
@@ -30,6 +28,8 @@ App.prototype = {
             //TODO: Drasko - change to fork with timeout
             setTimeout(this.compileOne.bind(this, this.filer.files[i]), Math.floor(Math.random() * 1000))
         }
+
+        this.options.watch && new Watcher(this.options)
     },
 
     compileOne: function(oneFile)

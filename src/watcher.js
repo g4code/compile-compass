@@ -17,7 +17,6 @@ Watcher.prototype = {
 
     onWatch: function(error, watcher)
     {
-        console.log(watcher.watched())
         this.watcher = watcher
         error ?
             evento.trigger('INFORMER|ERROR', error) :
