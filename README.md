@@ -20,14 +20,18 @@ Usage: compile-compass [options]
     -h, --help           output usage information
     -V, --version        output the version number
     -c, --config [type]  specify the location of the configuration file explicitly
+    -w, --watch          compile sass stylesheets to css when they change
 ```
-eg
+examples
 ```bash
 $ compile-compass --help
 $ compile-compass --version
     
 # compile 
 $ compile-compass --config path/to/config.json
+
+# watch for changes
+$ compile-compass --watch --config path/to/config.json
 ```
 
 ## Config options
