@@ -28,12 +28,15 @@
     "evento"                    : "*",
     "fs-extra"                  : "*",
     "gaze"                      : "*",
+    "glob"                      : "*",
     "informer"                  : "*",
     "node-sass"                 : "*",
     "node-sass-css-importer"    : "*",
     "node-sass-asset-functions" : "*",
     "recursive-readdir"         : "*",
-    "timo"                      : "*"
+    "spritesmith"               : "*",
+    "timo"                      : "*",
+    "twig"                      : "*"
   },
   "bin": {
     "compile-compass": "./bin/compile-compass.js"

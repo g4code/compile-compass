@@ -22,13 +22,15 @@ var Options = function(pathToConfig, watch) {
     configPath    = normalizeConfigPath(pathToConfig)
     configDirName = path.dirname(configPath)
 
-    var rawData       = fs.readFileSync(configPath, 'utf8');
-    var data          = JSON.parse(rawData)
+    var rawData = fs.readFileSync(configPath, 'utf8');
+    var data    = JSON.parse(rawData)
 
-    this.watch        = watch !== undefined && watch
-    this.import_paths = data.import_paths.map(buildPath)
-    this.css_dir      = buildPath(data.css_dir)
-    this.sass_dir     = buildPath(data.sass_dir)
+    this.watch                  = watch !== undefined && watch
+    this.import_paths           = data.import_paths.map(buildPath)
+    this.css_dir                = buildPath(data.css_dir)
+    this.sass_dir               = buildPath(data.sass_dir)
+    this.sprite_load_path       = buildPath(data.sprite_load_path)
+    this.generated_images_dir   = buildPath(data.generated_images_dir)
 }
 
 Options.prototype = {}
