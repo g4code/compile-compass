@@ -1,5 +1,41 @@
+
 /* {{ sprite_file_pattern }} */
 .{{ sprite_filename }}-sprite {
   background-image: url({{ sprite_url }});
   background-repeat: no-repeat;
+}
+
+@mixin all-{{ sprite_filename }}-sprites() {
+    {% for one_sprite_image in sprite_images %}
+        .{{ sprite_filename }}-{{ one_sprite_image.name }} {
+            @extend .{{ sprite_filename }}-sprite;
+            {% if one_sprite_image.y == 0 %}
+                background-position: 0 0;
+            {% else %}
+                background-position: 0 -{{ one_sprite_image.y }}px;
+            {% endif %}
+        }
+    {% endfor %}
+}
+
+@mixin {{ sprite_filename }}-sprite($image_name) {
+    {% for one_sprite_image in sprite_images %}
+        @extend .{{ sprite_filename }}-sprite;
+        @if $image_name == {{ one_sprite_image.name }} {
+            {% if one_sprite_image.y == 0 %}
+                background-position: 0 0;
+            {% else %}
+                background-position: 0 -{{ one_sprite_image.y }}px;
+            {% endif %}
+        }
+    {% endfor %}
+}
+
+@mixin {{ sprite_filename }}-sprite-dimensions($image_name) {
+    {% for one_sprite_image in sprite_images %}
+        @if $image_name == {{ one_sprite_image.name }} {
+            height: {{ one_sprite_image.height }}px;
+            width: {{ one_sprite_image.width }}px;
+        }
+    {% endfor %}
 }
