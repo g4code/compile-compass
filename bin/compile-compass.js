@@ -16,6 +16,10 @@ evento.on("INFORMER|LOADING",   informer.loading.bind(informer));
 evento.on("INFORMER|SUCCESS",   informer.success.bind(informer));
 evento.on("INFORMER|WARNING",   informer.warning.bind(informer));
 
+evento.on("COMMANDER|HELP",     function() {
+    commander.outputHelp()
+})
+
 commander
     .version(packageData.version)
     .option('-c, --config [path]', 'specify the location of the configuration file explicitly')
