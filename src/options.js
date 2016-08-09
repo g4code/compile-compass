@@ -38,8 +38,8 @@ var Options = function(pathToConfig, watch) {
     this.import_paths           = data.import_paths.map(buildPath)
     this.css_dir                = buildPath(data.css_dir)
     this.sass_dir               = buildPath(data.sass_dir)
-    this.sprite_load_path       = buildPath(data.sprite_load_path)
-    this.generated_images_dir   = buildPath(data.generated_images_dir)
+    this.sprite_load_path       = data.sprite_load_path === undefined ? null : buildPath(data.sprite_load_path)
+    this.generated_images_dir   = data.generated_images_dir === undefined ? null : buildPath(data.generated_images_dir)
 }
 
 Options.prototype = {}
