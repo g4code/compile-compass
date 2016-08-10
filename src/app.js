@@ -1,12 +1,11 @@
-const Compiler      = require('./compiler')
 const Watcher       = require('./watcher')
 const evento        = require('evento')
 const Filer         = require('./filer')
-const File          = require('./file')
 const sass          = require('node-sass')
 const eol           = require('os').EOL
 const Stats         = require('./stats')
 const process       = require('process')
+const Forker        = require('./forker')
 
 var App = function(options) {
 
@@ -30,16 +29,7 @@ App.prototype = {
 
     compile: function(files)
     {
-        var arrayLength = files.length;
-        for (var i = 0; i < arrayLength; i++) {
-            //TODO: Drasko - change to fork with timeout
-            setTimeout(this.compileOne.bind(this, files[i]), Math.floor(Math.random() * 1000))
-        }
-    },
-
-    compileOne: function(oneFile)
-    {
-        new Compiler(this.options, new File(oneFile, this.options)).compile()
+        new Forker(this.options, files).fork()
     },
 
     onCompilerStats: function(oneStat)
