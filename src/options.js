@@ -6,6 +6,10 @@ var process         = require('process')
 var configPath      = null
 var configDirName   = null
 
+/**
+ * @param {string} filePath
+ * @returns {string}
+ */
 function buildPath(filePath) {
 
     return path.isAbsolute(filePath) ?
@@ -13,6 +17,10 @@ function buildPath(filePath) {
         path.join(configDirName, filePath)
 }
 
+/**
+ * @param {string} filePath
+ * @returns {string}
+ */
 function normalizeConfigPath(filePath) {
 
     return path.isAbsolute(filePath) ?
@@ -20,6 +28,10 @@ function normalizeConfigPath(filePath) {
         path.join(process.cwd(), filePath)
 }
 
+/**
+ * @param {string} path
+ * @returns {boolean}
+ */
 function isPathValid(path) {
 
     return path === undefined ||
@@ -28,6 +40,11 @@ function isPathValid(path) {
         !fs.statSync(path).isFile()
 }
 
+/**
+ * @param {string} pathToConfig
+ * @param {boolean} watch
+ * @constructor
+ */
 var Options = function(pathToConfig, watch) {
 
     if (isPathValid(pathToConfig)) {
