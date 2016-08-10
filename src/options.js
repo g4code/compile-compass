@@ -20,10 +20,18 @@ function normalizeConfigPath(filePath) {
         path.join(process.cwd(), filePath)
 }
 
+function isPathValid(path) {
+
+    return path === undefined ||
+        path.length === undefined ||
+        path.length < 1 ||
+        !fs.statSync(path).isFile()
+}
+
 var Options = function(pathToConfig, watch) {
 
-    if (pathToConfig === undefined || pathToConfig.length === undefined || pathToConfig.length < 1) {
-        evento.trigger('INFORMER|ERROR', 'Config must be specified')
+    if (isPathValid(pathToConfig)) {
+        evento.trigger('INFORMER|ERROR', 'Path to config file is not valid!')
         evento.trigger('COMMANDER|HELP')
         process.exit()
     }
