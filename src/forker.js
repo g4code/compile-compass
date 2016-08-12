@@ -1,10 +1,12 @@
 const Compiler      = require('./compiler')
 const File          = require('./file')
+const fork          = require('child_process').fork
+const evento        = require('evento')
 
 var Forker = function(options, files) {
 
     this.options    = options
-    this.files          = files
+    this.files      = files
     this.filesCount = files.length
 }
 
@@ -13,13 +15,27 @@ Forker.prototype = {
     fork: function()
     {
         for (var i = 0; i < this.filesCount; i++) {
-            setTimeout(this.compile.bind(this, this.files[i]), Math.floor(Math.random() * 1000))
+            this.compile(this.files[i])
         }
     },
 
+    //TODO change messages
     compile: function(oneFile)
     {
-        new Compiler(this.options, new File(oneFile, this.options)).compile()
+        var workerProcess = fork(__dirname + '/compiler')
+
+        workerProcess.on('message', function(message) {
+            evento.trigger(message.code, message.message)
+        });
+
+        workerProcess.on('close', function(code) {
+
+        });
+
+        workerProcess.send({
+            options: this.options,
+            oneFile: oneFile
+        })
     },
 
 }

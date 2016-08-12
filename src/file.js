@@ -28,28 +28,14 @@ File.prototype = {
         return this.sourcePath
     },
 
-    writeToDestinationCssPath: function(content)
+    writeToDestinationCssPath: function(content, callback)
     {
-        fs.outputFile(this.getDestinationPath(), content, this.onWriteToDestinationCssPath.bind(this))
+        fs.outputFile(this.getDestinationPath(), content, callback)
     },
 
-    writeToDestinationMapPath: function(content)
+    writeToDestinationMapPath: function(content, callback)
     {
-        fs.outputFile(this.getDestinationPathForMap(), content, this.onWriteToDestinationMapPath.bind(this))
-    },
-
-    onWriteToDestinationCssPath: function(error)
-    {
-        error ?
-            evento.trigger('INFORMER|ERROR', error) :
-            evento.trigger('INFORMER|SUCCESS', 'write ' + this.getDestinationPath())
-    },
-
-    onWriteToDestinationMapPath: function(error)
-    {
-        error ?
-            evento.trigger('INFORMER|ERROR', error) :
-            evento.trigger('INFORMER|SUCCESS', 'write ' + this.getDestinationPathForMap())
+        fs.outputFile(this.getDestinationPathForMap(), content, callback)
     }
 }
 
